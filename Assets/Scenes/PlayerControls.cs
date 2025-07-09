@@ -6,7 +6,10 @@ using UnityEngine;
 */
 
 public class PlayerControls : MonoBehaviour
-{
+{   
+
+    private bool mouseDragging = false;
+
     // Camera Rotation
     public float mouseSensitivity = 2f;
     private float verticalRotation = 0f;
@@ -36,24 +39,43 @@ public class PlayerControls : MonoBehaviour
         playerHeight = GetComponent<CapsuleCollider>().height * transform.localScale.y;
         raycastDistance = (playerHeight / 2) + 0.2f;
 
-        // Hides the mouse
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+
     }
 
     void Update()
-    {
-        moveHorizontal = Input.GetAxisRaw("Horizontal");
-        moveForward = Input.GetAxisRaw("Vertical");
+    {  
+        if (Input.GetMouseButtonDown(1))
+        {
+            mouseDragging = true;
+        }
 
-        RotateCamera();
+        if (Input.GetMouseButtonUp(1))
+        {
+            mouseDragging = false;
+            rb.linearVelocity = Vector3.zero; // Stop movement when mouse is released
+        }
 
+    
+        if(mouseDragging)
+        {
+            moveHorizontal = Input.GetAxisRaw("Horizontal");
+            moveForward = Input.GetAxisRaw("Vertical");
 
+            RotateCamera();
+            // Hides the mouse
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        } else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     void FixedUpdate()
     {
-        MovePlayer();
+        if(mouseDragging) MovePlayer();
+        
     }
 
     void MovePlayer()
