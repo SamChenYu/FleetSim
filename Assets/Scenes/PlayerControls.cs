@@ -22,7 +22,6 @@ public class PlayerControls : MonoBehaviour
     public float jumpForce = 10f;
     public float fallMultiplier = 2.5f; // Multiplies gravity when falling down
     public float ascendMultiplier = 2f; // Multiplies gravity for ascending to peak of jump
-    private bool isGrounded = true;
     public LayerMask groundLayer;
     private float playerHeight;
     private float raycastDistance;
