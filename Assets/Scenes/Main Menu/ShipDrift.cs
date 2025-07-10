@@ -17,8 +17,8 @@ void Update()
 {
     float t = Time.time;
 
-    float rollOffset = Mathf.Sin(t) * 0.02f * Mathf.Rad2Deg;  // Z axis
-    float pitchOffset = Mathf.Sin(t) * 0.02f * Mathf.Rad2Deg; // X axis
+    float rollOffset = Mathf.Sin(t) * 0.01f * Mathf.Rad2Deg;  // Z axis
+    float pitchOffset = Mathf.Sin(t) * 0.01f * Mathf.Rad2Deg; // X axis
 
 
     transform.localEulerAngles = new Vector3(

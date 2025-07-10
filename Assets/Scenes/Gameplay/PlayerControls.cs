@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {   
-
+    private PlayerShipController playerShipController; // Dependency Injection for playercontrols
     private bool mouseDragging = false;
 
     // Camera Rotation
@@ -30,7 +30,15 @@ public class PlayerControls : MonoBehaviour
     private float raycastDistance;
 
     void Start()
-    {
+    {   
+
+        playerShipController = Object.FindFirstObjectByType<PlayerShipController>();
+        if(playerShipController == null)
+        {
+            Debug.LogError("PlayerShipController component not found on PlayerControls GameObject.");
+        }
+
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         cameraTransform = Camera.main.transform;
@@ -44,6 +52,12 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {  
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) playerShipController.SelectShip(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) playerShipController.SelectShip(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) playerShipController.SelectShip(2);
+
         if (Input.GetMouseButtonDown(1))
         {
             mouseDragging = true;
