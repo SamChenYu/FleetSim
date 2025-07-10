@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class DeploymentController : MonoBehaviour
 {
-    
+
+    public GameController gameController;
     public bool isDeploymentPhase = true;
     public GameObject waypointMarkerPrefab; // Prefab for the waypoint marker
 
@@ -24,6 +25,12 @@ public class DeploymentController : MonoBehaviour
         {
             Debug.LogError("DeployButton not found in the scene.");
         }
+        gameController = Object.FindFirstObjectByType<GameController>();
+        if (gameController == null)
+        {
+            Debug.LogError("GameController component not found in the scene.");
+        }
+
         deployButton.SetActive(false); // Hide deploy button initially
     }
 
@@ -62,8 +69,16 @@ public class DeploymentController : MonoBehaviour
         }
         Destroy(waypoints[deploymentArrPtr]); // Destroy previous waypoint if exists
         waypoints[deploymentArrPtr] = Instantiate(waypointMarkerPrefab, position, Quaternion.identity);
+        deploymentPoints[deploymentArrPtr] = waypoints[deploymentArrPtr].transform; // Store the deployment point
+        Debug.Log("Waypoint marker placed at: " + position + ". Deployment point index: " + deploymentArrPtr);
 
 
+    }
+
+
+    public void EndDeploymentPhase()
+    {
+        gameController.EndDeploymentPhase(deploymentPoints);
     }
 
 }

@@ -1,10 +1,10 @@
 using UnityEngine;
 
 public class PlayerShipController : MonoBehaviour
-{   
+{
 
-    
-    public bool isDeploymentPhase = false; 
+
+    public bool isDeploymentPhase = false;
 
     public GameObject[] playerShips;
     public ShipData[] shipData;
@@ -13,6 +13,8 @@ public class PlayerShipController : MonoBehaviour
 
     public int currentShipSelected = -1;
 
+
+    public Transform[] deploymentPoints; // Points where ships are deployed
 
     public void SelectShip(int shipIndex)
     {
@@ -49,6 +51,12 @@ public class PlayerShipController : MonoBehaviour
         {
             return;
         }
+
+    }
+
+    public void SetDeployment(Transform[] points)
+    {
+        deploymentPoints = points;
 
     }
 }
