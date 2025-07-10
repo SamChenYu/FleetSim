@@ -8,6 +8,11 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {   
     private PlayerShipController playerShipController; // Dependency Injection for playercontrols
+    private DeploymentController deploymentController; // Dependency Injection for deployment controller
+
+    private bool isDeploymentPhase = true; // Flag to check if in deployment phase
+
+
     private bool mouseDragging = false;
 
     // Camera Rotation
@@ -32,10 +37,16 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {   
 
+        deploymentController = Object.FindFirstObjectByType<DeploymentController>();
+        if(deploymentController == null)
+        {
+            Debug.LogError("PlayerShipController component not found.");
+        }
+
         playerShipController = Object.FindFirstObjectByType<PlayerShipController>();
         if(playerShipController == null)
         {
-            Debug.LogError("PlayerShipController component not found on PlayerControls GameObject.");
+            Debug.LogError("PlayerShipController component not found.");
         }
 
 
@@ -52,8 +63,6 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {  
-
-
         if (Input.GetKeyDown(KeyCode.Alpha1)) playerShipController.SelectShip(0);
         if (Input.GetKeyDown(KeyCode.Alpha2)) playerShipController.SelectShip(1);
         if (Input.GetKeyDown(KeyCode.Alpha3)) playerShipController.SelectShip(2);
@@ -69,21 +78,43 @@ public class PlayerControls : MonoBehaviour
             rb.linearVelocity = Vector3.zero; // Stop movement when mouse is released
         }
 
-    
-        if(mouseDragging)
+        if (Input.GetMouseButtonDown(0))
         {
-            moveHorizontal = Input.GetAxisRaw("Horizontal");
-            moveForward = Input.GetAxisRaw("Vertical");
+            if (isDeploymentPhase)
+            {
+                // Deployment raycast logic 
+                // Find out where the player clicks at y = 0 to place a waypoint marker
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+                if (groundPlane.Raycast(ray, out float enter))
+                {
+                    Vector3 hitpoint = ray.GetPoint(enter);
+                    deploymentController.PlaceWaypointMarker(hitpoint);
+                }
 
-            RotateCamera();
-            // Hides the mouse
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        } else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            }
+            else
+            {
+                // Handle gameplay actions here
+                Debug.Log("Gameplay action triggered.");
+            }
         }
+    
+        if (mouseDragging)
+            {
+                moveHorizontal = Input.GetAxisRaw("Horizontal");
+                moveForward = Input.GetAxisRaw("Vertical");
+
+                RotateCamera();
+                // Hides the mouse
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
     }
 
     void FixedUpdate()

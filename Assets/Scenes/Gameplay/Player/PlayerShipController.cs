@@ -3,6 +3,9 @@ using UnityEngine;
 public class PlayerShipController : MonoBehaviour
 {   
 
+    
+    public bool isDeploymentPhase = false; 
+
     public GameObject[] playerShips;
     public ShipData[] shipData;
     private const int shipCount = 3;
@@ -41,6 +44,11 @@ public class PlayerShipController : MonoBehaviour
 
     void Update()
     {
-        
+
+        if (isDeploymentPhase)
+        {
+            return;
+        }
+
     }
 }
