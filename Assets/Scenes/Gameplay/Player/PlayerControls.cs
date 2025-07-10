@@ -78,7 +78,7 @@ public class PlayerControls : MonoBehaviour
             rb.linearVelocity = Vector3.zero; // Stop movement when mouse is released
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(2))
         {
             if (isDeploymentPhase)
             {
