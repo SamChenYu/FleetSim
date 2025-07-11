@@ -1,20 +1,21 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerShipController : MonoBehaviour
 {
 
 
-    public bool isDeploymentPhase = false;
-
+    // Ship data
     public GameObject[] playerShips;
     public ShipData[] shipData;
     public const int shipCount = 3;
-
-
     public int currentShipSelected = -1;
 
 
-    public Transform[] deploymentPoints; // Points where ships are deployed
+    // UI elements
+    public GameObject gameplayUI;
+    public GameObject shipLabelPrefab;
+    public Vector3 currentLabelPosition = new Vector3(-840, 160, 0); // Position to spawn ship labels
 
     public void SelectShip(int shipIndex)
     {
@@ -42,16 +43,31 @@ public class PlayerShipController : MonoBehaviour
         shipData[2] = ScriptableObject.CreateInstance<ShipData>();
         shipData[2].Initialize("Fighter", "Terminus 2");
 
+        gameplayUI.SetActive(false);
     }
 
     void Update()
     {
-
-        if (isDeploymentPhase)
-        {
-            return;
-        }
-
     }
 
-}
+
+    public void ReceiveShipsFromDeployment(GameObject[] deploymentShips)
+    {
+        playerShips = deploymentShips;
+        Debug.Log("Received ships from deployment. Total ships: " + playerShips.Length);
+
+
+        // Initialize ship labels in the UI
+        gameplayUI.SetActive(true);
+        for (int i = 0; i < shipData.Length; i++)
+        {
+            GameObject shipLabel = Instantiate(shipLabelPrefab, currentLabelPosition, Quaternion.identity);
+            TextMeshProUGUI labelText = shipLabel.GetComponentInChildren<TextMeshProUGUI>();
+            labelText.text = shipData[i].name + " (" + shipData[i].baseSpeed + " speed)";
+            shipLabel.transform.SetParent(gameplayUI.transform, false);
+            currentLabelPosition += new Vector3(0, -50, 0);
+        }
+
+
+    }
+}   

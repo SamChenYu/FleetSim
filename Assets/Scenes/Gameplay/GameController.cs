@@ -6,10 +6,10 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    private DeploymentController deploymentController;
-    private DeploymentUI deploymentUI;
+    public DeploymentController deploymentController;
+    public DeploymentUI deploymentUI;
 
-    private PlayerShipController playerShipController;
+    public PlayerShipController playerShipController;
 
 
 
@@ -22,11 +22,6 @@ public class GameController : MonoBehaviour
         new string[] { "Fighter", "Terminus 1" },
         new string[] { "Fighter", "Terminus 2" }
     };
-
-
-
-
-
 
 
     void Start()

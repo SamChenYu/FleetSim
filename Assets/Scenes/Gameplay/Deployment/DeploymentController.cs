@@ -6,7 +6,6 @@ public class DeploymentController : MonoBehaviour
 
     public GameController gameController;
     public GameObject waypointMarkerPrefab; // Prefab for the waypoint marker
-    private bool isDeploymentPhase = true; 
 
     // UI Elements
     public GameObject deployButton;
@@ -25,8 +24,7 @@ public class DeploymentController : MonoBehaviour
     
 
 
-    void Start()
-    {   
+    void Start() { 
         // Find UI elements
         deployButton = GameObject.Find("DeployButton");
         if (deployButton == null) Debug.LogError("DeployButton not found in the scene.");
@@ -35,8 +33,6 @@ public class DeploymentController : MonoBehaviour
         // Find GameController
         gameController = Object.FindFirstObjectByType<GameController>();
         if (gameController == null) Debug.LogError("GameController component not found in the scene.");
-
-
         // Initialization       
         deploymentPoints = new Transform[GameController.shipCount];
         waypoints = new GameObject[GameController.shipCount];
@@ -47,117 +43,90 @@ public class DeploymentController : MonoBehaviour
 
 
 
-    public void PlaceWaypointMarker(Vector3 position)
-    {
+    public void PlaceWaypointMarker(Vector3 position) {
+    
         // Logic to place a waypoint marker at the specified position
-        if (waypointMarkerPrefab == null)
-        {
+        if (waypointMarkerPrefab == null) {
             Debug.LogError("Waypoint marker prefab is not assigned.");
             return;
         }
 
         deploymentArrPtr++;
 
-        if (deploymentArrPtr == GameController.shipCount)
-        {
+        if (deploymentArrPtr == GameController.shipCount) {
             // Notify that deployment phase can be ended
             Debug.Log("All waypoints placed. Deployment phase can be ended.");
             deployButton.SetActive(true); // Show deploy button
         }
 
-
-        if (deploymentArrPtr >= GameController.shipCount)
-        {
+        if (deploymentArrPtr >= GameController.shipCount) {
             deploymentArrPtr = 0; // Reset pointer
         }
         Destroy(waypoints[deploymentArrPtr]); // Destroy previous waypoint if exists
         waypoints[deploymentArrPtr] = Instantiate(waypointMarkerPrefab, position, Quaternion.identity);
         deploymentPoints[deploymentArrPtr] = waypoints[deploymentArrPtr].transform; // Store the deployment point
         Debug.Log("Waypoint marker placed at: " + position + ". Deployment point index: " + deploymentArrPtr);
-
-
     }
 
 
-    public void EndDeploymentPhase()
-    {
-
-
+    public void EndDeploymentPhase() {
         // Spawn the ships at the deployment points
         GameObject[] playerShips = new GameObject[GameController.shipCount];
-        for (int i = 0; i < GameController.shipCount; i++)
-        {
-            if (deploymentPoints[i] == null)
-            {
+        for (int i = 0; i < GameController.shipCount; i++) {
+            if (deploymentPoints[i] == null) {
                 Debug.LogError("Deployment point " + i + " is null. Cannot spawn ship.");
                 continue;
             }
             Vector3 spawnPosition = deploymentPoints[i].position;
-            switch (GameController.playerShips[i][0])
-            {
+            switch (GameController.playerShips[i][0]) {
+             
                 case "Battleship":
-                    spawnPosition.z = 300f;       
+                    spawnPosition.z = 300f;
+                    deploymentPoints[i].position += new Vector3(0.0f, 2.0f, 0.0f);
                     playerShips[i] = Instantiate(arquitensPrefab, spawnPosition, Quaternion.Euler(90, 0, 0));
                     // Start warp-in animation
-                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1f+0.5f)); // Warp
+                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1f + 0.5f)); // Warp
                     break;
+
                 case "Fighter":
-                    
-                    spawnPosition.x -= 2.45f; // terminus model has some slight offset
                     spawnPosition.z = 300f;
+                    spawnPosition.x -= 4.90f; // terminus model has some slight offset -> this is at 2x size
+                    // Adjust the deploymentPoint because the terminus model is not centered
+                    deploymentPoints[i].position += new Vector3(-4.90f, 0.0f, 0.0f);
                     playerShips[i] = Instantiate(terminusPrefab, spawnPosition, Quaternion.Euler(-90, 0, 180));
                     // Start warp-in animation
-                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1.0f));
-
+                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1.0f + Random.Range(0.0f, 0.5f)));
                     break;
+
                 default:
                     Debug.LogError("Unknown ship type: " + GameController.playerShips[i][0]);
                     break;
             }
         }
-        // Destroy the waypoint markers
-
-        for(int i = 0; i < GameController.shipCount; i++)
-        {
-            if (waypoints[i] != null)
-            {
+        // Destroy the waypoint markers=
+        for (int i = 0; i < GameController.shipCount; i++) {
+            if (waypoints[i] != null) {
                 Destroy(waypoints[i]);
             }
         }
-
         // Hide UI
         deployButton.SetActive(false);
         title.SetActive(false);
+        // Pass the ship data to the PlayerShipController
+        gameController.playerShipController.ReceiveShipsFromDeployment(playerShips);
+        Debug.Log("Deployment phase ended. Ships deployed: " + playerShips.Length);
     }
 
 
-    private IEnumerator WarpIn(GameObject ship, Vector3 targetPos, float duration)
-    {
+    private IEnumerator WarpIn(GameObject ship, Vector3 targetPos, float duration) {
+        // Coroutine to animate the ship's warp-in effect
         Vector3 startPos = ship.transform.position;
         float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
+        while (elapsed < duration) {
             ship.transform.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
             elapsed += Time.deltaTime;
             yield return null;
         }
-
         ship.transform.position = targetPos;
     }
-
-
-
-
-    void Update()
-    {
-        if (isDeploymentPhase)
-        {
-            return;
-        }
-
-
-
-    }
-
 }
