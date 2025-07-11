@@ -8,7 +8,7 @@ public class PlayerShipController : MonoBehaviour
 
     public GameObject[] playerShips;
     public ShipData[] shipData;
-    private const int shipCount = 3;
+    public const int shipCount = 3;
 
 
     public int currentShipSelected = -1;
@@ -54,9 +54,4 @@ public class PlayerShipController : MonoBehaviour
 
     }
 
-    public void SetDeployment(Transform[] points)
-    {
-        deploymentPoints = points;
-
-    }
 }

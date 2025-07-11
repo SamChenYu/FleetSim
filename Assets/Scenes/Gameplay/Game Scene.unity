@@ -290,12 +290,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
-  isDeploymentPhase: 1
   waypointMarkerPrefab: {fileID: 4103225898545282988, guid: c17ca251be4262b4f8fdecce17c0aec8, type: 3}
   deployButton: {fileID: 0}
+  title: {fileID: 0}
   deploymentPoints: []
   deploymentArrPtr: 0
   waypoints: []
+  arquitensPrefab: {fileID: 117422387704774842, guid: 6387d23fe259abe4480470966eac4c07, type: 3}
+  terminusPrefab: {fileID: 6730039245450940940, guid: c0ffb39813e88644c9f6a1dc8a0b996a, type: 3}
 --- !u!4 &324780821
 Transform:
   m_ObjectHideFlags: 0
@@ -977,7 +979,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2036091722}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 324780820}
+        m_TargetAssemblyTypeName: DeploymentController, Assembly-CSharp
+        m_MethodName: EndDeploymentPhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2036091722
 MonoBehaviour:
   m_ObjectHideFlags: 0
