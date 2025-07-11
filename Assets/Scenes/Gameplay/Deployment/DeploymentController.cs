@@ -97,7 +97,7 @@ public class DeploymentController : MonoBehaviour
             {
                 case "Battleship":
                     spawnPosition.z = 300f;       
-                    playerShips[i] = Instantiate(arquitensPrefab, spawnPosition, Quaternion.Euler(-90, 0, 180));
+                    playerShips[i] = Instantiate(arquitensPrefab, spawnPosition, Quaternion.Euler(90, 0, 0));
                     // Start warp-in animation
                     StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1f+0.5f)); // Warp
                     break;

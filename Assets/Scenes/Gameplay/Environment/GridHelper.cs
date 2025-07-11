@@ -4,7 +4,7 @@ public class GridHelper : MonoBehaviour
 {
     public int size = 500;
     public int divisions = 10;
-    public float lineWidth = 0.02f;
+    public float lineWidth = 1.0f;
     public Material lineMaterial;
 
     void Start()
