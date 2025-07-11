@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class DeploymentController : MonoBehaviour
 {
@@ -91,16 +92,23 @@ public class DeploymentController : MonoBehaviour
                 Debug.LogError("Deployment point " + i + " is null. Cannot spawn ship.");
                 continue;
             }
-
+            Vector3 spawnPosition = deploymentPoints[i].position;
             switch (GameController.playerShips[i][0])
             {
                 case "Battleship":
-                    playerShips[i] = Instantiate(arquitensPrefab, deploymentPoints[i].position, Quaternion.Euler(-90, 0, 180));
+                    spawnPosition.z = 300f;       
+                    playerShips[i] = Instantiate(arquitensPrefab, spawnPosition, Quaternion.Euler(-90, 0, 180));
+                    // Start warp-in animation
+                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1f+0.5f)); // Warp
                     break;
                 case "Fighter":
-                    Vector3 spawnPosition = deploymentPoints[i].position;
-                    spawnPosition.x -= 2.45f;
+                    
+                    spawnPosition.x -= 2.45f; // terminus model has some slight offset
+                    spawnPosition.z = 300f;
                     playerShips[i] = Instantiate(terminusPrefab, spawnPosition, Quaternion.Euler(-90, 0, 180));
+                    // Start warp-in animation
+                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1.0f));
+
                     break;
                 default:
                     Debug.LogError("Unknown ship type: " + GameController.playerShips[i][0]);
@@ -121,6 +129,23 @@ public class DeploymentController : MonoBehaviour
         deployButton.SetActive(false);
         title.SetActive(false);
     }
+
+
+    private IEnumerator WarpIn(GameObject ship, Vector3 targetPos, float duration)
+    {
+        Vector3 startPos = ship.transform.position;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            ship.transform.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        ship.transform.position = targetPos;
+    }
+
 
 
 
