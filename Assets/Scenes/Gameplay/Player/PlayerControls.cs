@@ -63,7 +63,7 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {  
-        if (Input.GetKeyDown(KeyCode.Alpha1)) playerShipController.SelectShip(0);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) playerShipController.SelectShip(0); // Adjusted to 0-based index
         if (Input.GetKeyDown(KeyCode.Alpha2)) playerShipController.SelectShip(1);
         if (Input.GetKeyDown(KeyCode.Alpha3)) playerShipController.SelectShip(2);
 

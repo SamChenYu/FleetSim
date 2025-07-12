@@ -298,6 +298,8 @@ MonoBehaviour:
   waypoints: []
   arquitensPrefab: {fileID: 117422387704774842, guid: 6387d23fe259abe4480470966eac4c07, type: 3}
   terminusPrefab: {fileID: 6730039245450940940, guid: c0ffb39813e88644c9f6a1dc8a0b996a, type: 3}
+  shipCount: 0
+  shipData: []
 --- !u!4 &324780821
 Transform:
   m_ObjectHideFlags: 0
@@ -995,11 +997,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerShips: []
   shipData: []
+  shipCount: 3
   currentShipSelected: -1
   gameplayUI: {fileID: 1415737812}
   shipLabelPrefab: {fileID: 6047538214546668848, guid: 1c0cd56d3d334fc4bb869322427a3265, type: 3}
-  currentLabelPosition: {x: 0, y: 0}
   shipLabels: []
+  currentLabelPosition: {x: 0, y: 0}
+  highlightMaterial: {fileID: 2100000, guid: 22955efc067f61548820df5b824688df, type: 2}
 --- !u!1 &2036091719
 GameObject:
   m_ObjectHideFlags: 0

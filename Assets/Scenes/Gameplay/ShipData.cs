@@ -6,6 +6,7 @@ public class ShipData : ScriptableObject
 
     // Basic data
     public string name;
+    public string type;
     public float baseSpeed;
     public float health;
     public GameObject shipPrefab; // Reference to the ship's prefab
@@ -33,6 +34,7 @@ public class ShipData : ScriptableObject
         {
             case "Fighter":
                 name = shipName;
+                type = "Fighter";
                 baseSpeed = 10f;
                 health = 100f;
                 power = 3;
@@ -49,6 +51,7 @@ public class ShipData : ScriptableObject
 
             case "Cruiser":
                 name = shipName;
+                type = "Cruiser";
                 baseSpeed = 8f;
                 health = 200f;
                 power = 4;
@@ -65,6 +68,7 @@ public class ShipData : ScriptableObject
 
             case "Battleship":
                 name = shipName;
+                type = "Battleship";
                 baseSpeed = 5f;
                 health = 300f;
                 power = 5;
@@ -80,7 +84,7 @@ public class ShipData : ScriptableObject
                 break;
 
             default:
-                Debug.LogError("Unknown ship type: " + shipName);
+                Debug.LogError("<ShipData> Unknown ship type: " + shipType);
                 break;
         }
     }

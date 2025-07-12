@@ -21,7 +21,13 @@ public class DeploymentController : MonoBehaviour
     // Source Models
     public GameObject arquitensPrefab;
     public GameObject terminusPrefab;
-    
+
+
+
+    // Ship data
+    public int shipCount;
+    public ShipData[] shipData;
+
 
 
     void Start() { 
@@ -34,9 +40,15 @@ public class DeploymentController : MonoBehaviour
         gameController = Object.FindFirstObjectByType<GameController>();
         if (gameController == null) Debug.LogError("GameController component not found in the scene.");
         // Initialization       
-        deploymentPoints = new Transform[GameController.shipCount];
-        waypoints = new GameObject[GameController.shipCount];
-
+        shipCount = gameController.playerShipController.shipCount;
+        shipData = gameController.playerShipController.shipData;
+        if(shipData == null || shipData.Length < shipCount) {
+            Debug.LogError("Ship data is not properly initialized.");
+            return;
+        }
+        deploymentPoints = new Transform[shipCount];
+        waypoints = new GameObject[shipCount];
+        
 
         deployButton.SetActive(false); // Hide deploy button initially
     }
@@ -53,13 +65,13 @@ public class DeploymentController : MonoBehaviour
 
         deploymentArrPtr++;
 
-        if (deploymentArrPtr == GameController.shipCount) {
+        if (deploymentArrPtr == shipCount) {
             // Notify that deployment phase can be ended
             Debug.Log("All waypoints placed. Deployment phase can be ended.");
             deployButton.SetActive(true); // Show deploy button
         }
 
-        if (deploymentArrPtr >= GameController.shipCount) {
+        if (deploymentArrPtr >= shipCount) {
             deploymentArrPtr = 0; // Reset pointer
         }
         Destroy(waypoints[deploymentArrPtr]); // Destroy previous waypoint if exists
@@ -71,15 +83,17 @@ public class DeploymentController : MonoBehaviour
 
     public void EndDeploymentPhase() {
         // Spawn the ships at the deployment points
-        GameObject[] playerShips = new GameObject[GameController.shipCount];
-        for (int i = 0; i < GameController.shipCount; i++) {
+        GameObject[] playerShips = new GameObject[shipCount];
+        for (int i = 0; i < shipCount; i++) {
             if (deploymentPoints[i] == null) {
                 Debug.LogError("Deployment point " + i + " is null. Cannot spawn ship.");
                 continue;
             }
             Vector3 spawnPosition = deploymentPoints[i].position;
-            switch (GameController.playerShips[i][0]) {
-             
+            Debug.Log(shipData[i]);
+            switch (shipData[i].type)
+            {
+
                 case "Battleship":
                     spawnPosition.z = 300f;
                     deploymentPoints[i].position += new Vector3(0.0f, 2.0f, 0.0f);
@@ -99,12 +113,12 @@ public class DeploymentController : MonoBehaviour
                     break;
 
                 default:
-                    Debug.LogError("Unknown ship type: " + GameController.playerShips[i][0]);
+                    Debug.LogError("<DeploymentController> Unknown ship type: " + shipData[i].type);
                     break;
             }
         }
         // Destroy the waypoint markers=
-        for (int i = 0; i < GameController.shipCount; i++) {
+        for (int i = 0; i < shipCount; i++) {
             if (waypoints[i] != null) {
                 Destroy(waypoints[i]);
             }
