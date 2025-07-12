@@ -15,7 +15,9 @@ public class PlayerShipController : MonoBehaviour
     // UI elements
     public GameObject gameplayUI;
     public GameObject shipLabelPrefab;
-    public Vector3 currentLabelPosition = new Vector3(-840, 160, 0); // Position to spawn ship labels
+    public Vector2 currentLabelPosition = new Vector2(0, 160); // Start more centered
+    public GameObject[] shipLabels;
+
 
     public void SelectShip(int shipIndex)
     {
@@ -29,6 +31,16 @@ public class PlayerShipController : MonoBehaviour
         {
             currentShipSelected = shipIndex;
             Debug.Log("Selected ship: " + currentShipSelected);
+            // Clear previous selections
+            for (int i = 0; i < shipLabels.Length; i++)
+            {
+                if (i != currentShipSelected)
+                {
+                    shipLabels[i].GetComponentInChildren<TextMeshProUGUI>().color = Color.white; // Reset other labels
+                }
+            }
+            shipLabels[shipIndex].GetComponentInChildren<TextMeshProUGUI>().color = Color.yellow; // Highlight selected ship label
+
         }
     }
 
@@ -43,6 +55,7 @@ public class PlayerShipController : MonoBehaviour
         shipData[2] = ScriptableObject.CreateInstance<ShipData>();
         shipData[2].Initialize("Fighter", "Terminus 2");
 
+        shipLabels = new GameObject[shipCount];
         gameplayUI.SetActive(false);
     }
 
@@ -59,15 +72,22 @@ public class PlayerShipController : MonoBehaviour
 
         // Initialize ship labels in the UI
         gameplayUI.SetActive(true);
+
         for (int i = 0; i < shipData.Length; i++)
         {
-            GameObject shipLabel = Instantiate(shipLabelPrefab, currentLabelPosition, Quaternion.identity);
+            GameObject shipLabel = Instantiate(shipLabelPrefab);
+            shipLabel.transform.SetParent(gameplayUI.transform, false);
+            Debug.Log("Coordinates of ship label: " + currentLabelPosition);
+            RectTransform rect = shipLabel.GetComponent<RectTransform>();
+            rect.anchoredPosition = currentLabelPosition;
+
             TextMeshProUGUI labelText = shipLabel.GetComponentInChildren<TextMeshProUGUI>();
             labelText.text = shipData[i].name + " (" + shipData[i].baseSpeed + " speed)";
-            shipLabel.transform.SetParent(gameplayUI.transform, false);
-            currentLabelPosition += new Vector3(0, -50, 0);
+            shipLabels[i] = shipLabel;
+            currentLabelPosition += new Vector2(0, -50); // Move label down
         }
 
 
+
     }
-}   
+}
