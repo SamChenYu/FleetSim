@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class PlayerShipController : MonoBehaviour
 {
@@ -10,13 +11,15 @@ public class PlayerShipController : MonoBehaviour
     public ShipData[] shipData;
     public int shipCount = 3;
     public int currentShipSelected = -1;
+private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
+
 
 
     // UI elements
     public GameObject gameplayUI;
     public GameObject shipLabelPrefab;
     public GameObject[] shipLabels;
-    public Vector2 currentLabelPosition = new Vector2(0, 160); // Start more centered
+    public Vector2 currentLabelPosition = new Vector2(0, 160);
     public Material highlightMaterial;
 
 
@@ -46,21 +49,44 @@ public class PlayerShipController : MonoBehaviour
         {
             // Reset the previously selected ship's color
             if (currentShipSelected != -1) shipLabels[currentShipSelected].GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+            // Reset the materials of the previously selected ship
+            if (currentShipSelected != -1)
+            {
+                Debug.Log("Resetting materials for previously selected ship.");
+                Renderer[] previousRenderers = playerShips[currentShipSelected].GetComponentsInChildren<Renderer>();
+                foreach (Renderer rend in previousRenderers)
+                {
+                    if (originalMaterials.ContainsKey(rend))
+                    {
+                        rend.materials = originalMaterials[rend];
+                    }
+                }
+            }
+
             // Highlight the selected ship label
             currentShipSelected = shipIndex;
             Debug.Log("Selected ship: " + currentShipSelected);
             Debug.Log(currentShipSelected);
             shipLabels[shipIndex].GetComponentInChildren<TextMeshProUGUI>().color = Color.yellow; // Highlight selected ship label
-            // Highlight the selected ship in the game world
-            Renderer renderer = playerShips[currentShipSelected].GetComponentInChildren<Renderer>();
 
-            if (renderer == null)
+            originalMaterials.Clear();
+            // Highlight the selected ship in the game world
+            Renderer[] renderers = playerShips[currentShipSelected].GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0)
             {
-                Debug.LogWarning("No renderer found on selected ship.");
+                Debug.LogWarning("No renderers found on selected ship.");
                 return;
             }
-
-            renderer.material = highlightMaterial;
+            foreach (Renderer rend in renderers)
+            {
+                originalMaterials[rend] = rend.materials; // Save original materials
+                Material[] highlightMats = new Material[rend.materials.Length];
+                for (int i = 0; i < highlightMats.Length; i++)
+                {
+                    highlightMats[i] = highlightMaterial;
+                }
+                rend.materials = highlightMats;
+            }
         }
     }
 
