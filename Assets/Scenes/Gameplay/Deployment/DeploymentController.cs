@@ -13,7 +13,7 @@ public class DeploymentController : MonoBehaviour
 
     // Deployment data
     public Transform[] deploymentPoints; // Points where ships can be deployed
-    public int deploymentArrPtr = 0; // Pointer to the next deployment point
+    public int deploymentArrPtr; // Pointer to the next deployment point
     public GameObject[] waypoints; // Array to hold waypoint markers
 
 
@@ -46,6 +46,7 @@ public class DeploymentController : MonoBehaviour
             Debug.LogError("Ship data is not properly initialized.");
             return;
         }
+        deploymentArrPtr = -1;
         deploymentPoints = new Transform[shipCount];
         waypoints = new GameObject[shipCount];
         
@@ -55,37 +56,48 @@ public class DeploymentController : MonoBehaviour
 
 
 
-    public void PlaceWaypointMarker(Vector3 position) {
-    
+    public void PlaceWaypointMarker(Vector3 position)
+    {
         // Logic to place a waypoint marker at the specified position
-        if (waypointMarkerPrefab == null) {
+        if (waypointMarkerPrefab == null)
+        {
             Debug.LogError("Waypoint marker prefab is not assigned.");
             return;
         }
 
-        deploymentArrPtr++;
 
-        if (deploymentArrPtr == shipCount) {
+        deploymentArrPtr++;
+        if (deploymentArrPtr == shipCount - 1)
+        {
             // Notify that deployment phase can be ended
             Debug.Log("All waypoints placed. Deployment phase can be ended.");
             deployButton.SetActive(true); // Show deploy button
+
         }
 
-        if (deploymentArrPtr >= shipCount) {
-            deploymentArrPtr = 0; // Reset pointer
-        }
+
         Destroy(waypoints[deploymentArrPtr]); // Destroy previous waypoint if exists
-        waypoints[deploymentArrPtr] = Instantiate(waypointMarkerPrefab, position, Quaternion.identity);
+        waypoints[deploymentArrPtr] = Instantiate(waypointMarkerPrefab, position, Quaternion.identity); // Create the new waypoint marker
         deploymentPoints[deploymentArrPtr] = waypoints[deploymentArrPtr].transform; // Store the deployment point
+
         Debug.Log("Waypoint marker placed at: " + position + ". Deployment point index: " + deploymentArrPtr);
+
+        if (deploymentArrPtr == shipCount - 1)
+        {
+            deploymentArrPtr = -1; // Reset pointer for next deployment phase
+        }
     }
+    
 
 
-    public void EndDeploymentPhase() {
+    public void EndDeploymentPhase()
+    {
         // Spawn the ships at the deployment points
         GameObject[] playerShips = new GameObject[shipCount];
-        for (int i = 0; i < shipCount; i++) {
-            if (deploymentPoints[i] == null) {
+        for (int i = 0; i < shipCount; i++)
+        {
+            if (deploymentPoints[i] == null)
+            {
                 Debug.LogError("Deployment point " + i + " is null. Cannot spawn ship.");
                 continue;
             }
@@ -118,8 +130,10 @@ public class DeploymentController : MonoBehaviour
             }
         }
         // Destroy the waypoint markers=
-        for (int i = 0; i < shipCount; i++) {
-            if (waypoints[i] != null) {
+        for (int i = 0; i < shipCount; i++)
+        {
+            if (waypoints[i] != null)
+            {
                 Destroy(waypoints[i]);
             }
         }
