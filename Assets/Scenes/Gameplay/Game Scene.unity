@@ -1002,8 +1002,11 @@ MonoBehaviour:
   gameplayUI: {fileID: 1415737812}
   shipLabelPrefab: {fileID: 6047538214546668848, guid: 1c0cd56d3d334fc4bb869322427a3265, type: 3}
   shipLabels: []
-  currentLabelPosition: {x: 0, y: 0}
+  shipStatsLabels: []
   highlightMaterial: {fileID: 2100000, guid: 22955efc067f61548820df5b824688df, type: 2}
+  AdjustPowerButtons: []
+  AddPowerButton: {fileID: 659316149278613550, guid: 2dc32dbe7f9854f46a9b04b501fb0cce, type: 3}
+  RemovePowerButton: {fileID: 4822891423163182411, guid: 633941df479e8654285c1a0e830cf638, type: 3}
 --- !u!1 &2036091719
 GameObject:
   m_ObjectHideFlags: 0

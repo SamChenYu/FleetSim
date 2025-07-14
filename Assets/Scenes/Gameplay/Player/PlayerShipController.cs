@@ -20,8 +20,13 @@ public class PlayerShipController : MonoBehaviour
     public GameObject shipLabelPrefab;
     public GameObject[] shipLabels;
     public GameObject[] shipStatsLabels;
-    public Vector2 currentLabelPosition = new Vector2(0, 160);
+    private Vector2 currentLabelPosition = new Vector2(0, 160);
     public Material highlightMaterial;
+
+
+    public GameObject[] AdjustPowerButtons;
+    public GameObject AddPowerButton;
+    public GameObject RemovePowerButton;
 
 
     void Awake()
@@ -79,6 +84,14 @@ public class PlayerShipController : MonoBehaviour
                 currentShipSelected = -1; // Deselect the ship if it is already selected
                 return;
             }
+            // Clear the previous buttons
+            for (int i = 0; i < AdjustPowerButtons.Length; i++)
+            {
+                if (AdjustPowerButtons[i] != null) Destroy(AdjustPowerButtons[i]);
+            }
+
+
+
 
             // Highlight the selected ship label
             currentShipSelected = shipIndex;
@@ -132,10 +145,24 @@ public class PlayerShipController : MonoBehaviour
         shipStatsLabels[7] = createLabel("Damage: " + shipData[currentShipSelected].damage.ToString("F1"), currentLabelPosition);
         currentLabelPosition += new Vector2(0, -50); // Move label down for next stat
         shipStatsLabels[8] = createLabel("Power: " + shipData[currentShipSelected].power, currentLabelPosition);
+
+
+        // Add engine buttons
+        GameObject[] temp = createAddPowerButton(currentLabelPosition);
+        AdjustPowerButtons[0] = temp[0]; // Add Engine Power Button
+        AdjustPowerButtons[1] = temp[1]; // Remove Engine Power Button
         shipStatsLabels[9] = createLabel("Allocated Engine Power: " + shipData[currentShipSelected].allocatedEnginePower, currentLabelPosition);
+
+        temp = createAddPowerButton(currentLabelPosition);
+        AdjustPowerButtons[2] = temp[0]; // Add Shield Power Button
+        AdjustPowerButtons[3] = temp[1]; // Remove Shield Power Button
         shipStatsLabels[10] = createLabel("Allocated Shield Power: " + shipData[currentShipSelected].allocatedShieldPower, currentLabelPosition);
+
+        temp = createAddPowerButton(currentLabelPosition);
+        AdjustPowerButtons[4] = temp[0]; // Add Weapon Power Button
+        AdjustPowerButtons[5] = temp[1]; // Remove Weapon Power Button
         shipStatsLabels[11] = createLabel("Allocated Weapon Power: " + shipData[currentShipSelected].allocatedWeaponPower, currentLabelPosition);
-        currentLabelPosition += new Vector2(0, 50*15); // Move label up to original position for next loop
+        currentLabelPosition += new Vector2(0, 50 * 15); // Move label up to original position for next loop
     }
 
     void Start()
@@ -144,6 +171,7 @@ public class PlayerShipController : MonoBehaviour
         gameplayUI.SetActive(false);
 
         shipStatsLabels = new GameObject[12];
+        AdjustPowerButtons = new GameObject[6];
     }
 
     void Update()
@@ -177,4 +205,26 @@ public class PlayerShipController : MonoBehaviour
         currentLabelPosition += new Vector2(0, -50); // Move label down
         return label;
     }
+
+    private GameObject[] createAddPowerButton(Vector2 position)
+    {
+        GameObject[] buttons = new GameObject[2];
+
+        GameObject addPowerButton = Instantiate(AddPowerButton);
+        addPowerButton.transform.SetParent(gameplayUI.transform, false);
+        RectTransform rect = addPowerButton.GetComponent<RectTransform>();
+        rect.anchoredPosition = position + new Vector2(300, 0); // Position below the ship stats
+
+        buttons[0] = addPowerButton;
+
+        GameObject removePowerButton = Instantiate(RemovePowerButton);
+        removePowerButton.transform.SetParent(gameplayUI.transform, false);
+        rect = removePowerButton.GetComponent<RectTransform>();
+        rect.anchoredPosition = position + new Vector2(350, 0); // Position below the add button
+        buttons[1] = removePowerButton;
+
+        return buttons;
+    }
+
+    
 }
