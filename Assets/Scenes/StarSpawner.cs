@@ -18,19 +18,30 @@ public class StarSpawner : MonoBehaviour
         for(int i=0; i<starCount; i++)
         {
             GameObject star = Instantiate(starPrefab);
-            star.transform.position = new Vector3(Random.Range(-150, 150), Random.Range(-100, 100), Random.Range(-150, 150));
+            star.transform.position = new Vector3(
+                RandomOutsideRange(-200f, 200f, -20f, 20f),
+                RandomOutsideRange(-100f, 100f, -20f, 20f),
+                RandomOutsideRange(-200f, 200f, -20f, 20f)
+            );
             stars[i] = star;
 
             starDrift[i] = new Vector3(Random.Range(-driftSpeed, driftSpeed), Random.Range(-driftSpeed, driftSpeed), Random.Range(-driftSpeed, driftSpeed));
         }
     }
-    void Update()
-    {        
-        // Every star drifts a little bit
-        for(int i=0; i<starCount; i++)
-        {
-            stars[i].transform.position += starDrift[i];
-        }
 
+
+
+    float RandomOutsideRange(float min, float max, float excludeMin, float excludeMax)
+    {
+        // Random.value 0 = lower range, 1 = upper range
+        if (Random.value < 0.5f)
+        {
+            return Random.Range(min, excludeMin);   // e.g. -200 to -50
+        }
+        else
+        {
+            return Random.Range(excludeMax, max);   // e.g. 50 to 100
+        }
     }
+
 }

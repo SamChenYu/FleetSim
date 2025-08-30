@@ -4,9 +4,9 @@ public class ShipDrift: MonoBehaviour
 {
     public GameObject ship;
 
-    private const float baseX = 90;
-    private const float baseY = 40f;
-    private const float baseZ = 0f;
+    [SerializeField] public float baseX = 90;
+    [SerializeField] public float baseY = 40f;
+    [SerializeField] public float baseZ = 0f;
 
     public void Start()
     {
