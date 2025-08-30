@@ -17,6 +17,9 @@ public class GameController : MonoBehaviour
         if (playerShipController == null) Debug.LogError("PlayerShipController component not found.");
         deploymentController = FindFirstObjectByType<DeploymentController>();
         if (deploymentController == null) Debug.LogError("DeploymentController component not found.");
+        deploymentUI = FindFirstObjectByType<DeploymentUI>();
+        if (deploymentUI == null) Debug.LogError("DeploymentUI component not found.");
+
     }
 
     void Start()
