@@ -35,10 +35,13 @@ public class PlayerShipController : MonoBehaviour
         shipData = new ShipData[shipCount];
         shipData[0] = ScriptableObject.CreateInstance<ShipData>();
         shipData[0].Initialize("Fighter", "Terminus 1");
+        shipData[0].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
         shipData[1] = ScriptableObject.CreateInstance<ShipData>();
         shipData[1].Initialize("Fighter", "Terminus 2");
+        shipData[1].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
         shipData[2] = ScriptableObject.CreateInstance<ShipData>();
         shipData[2].Initialize("Battleship", "Arquitens");
+        shipData[2].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/arquitens");
     }
 
     public void SelectShip(int shipIndex)

@@ -4,7 +4,7 @@ public class GridHelper : MonoBehaviour
 {
     public int size = 500;
     public int divisions = 10;
-    public float lineWidth = 0.1f;
+    public float lineWidth = 1.0f;
     public Material lineMaterial;
 
     void Start()
@@ -17,10 +17,10 @@ public class GridHelper : MonoBehaviour
             float offset = -halfSize + i * step;
 
             // Vertical lines (Z axis)
-            DrawLine(new Vector3(offset, 0, -halfSize), new Vector3(offset, 0, halfSize));
+            DrawLine(new Vector3(offset, 1, -halfSize), new Vector3(offset, 1, halfSize));
 
             // Horizontal lines (X axis)
-            DrawLine(new Vector3(-halfSize, 0, offset), new Vector3(halfSize, 0, offset));
+            DrawLine(new Vector3(-halfSize, 1, offset), new Vector3(halfSize, 1, offset));
         }
     }
 

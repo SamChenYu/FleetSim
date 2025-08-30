@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-
 public class DeploymentController : MonoBehaviour
 {
 
@@ -12,6 +11,7 @@ public class DeploymentController : MonoBehaviour
     public GameObject title;
 
     // Deployment data
+    public Material highlightMaterial; // Material used to highlight the waypoint marker
     public Transform[] deploymentPoints; // Points where ships can be deployed
     public int deploymentArrPtr; // Pointer to the next deployment point
     public GameObject[] waypoints; // Array to hold waypoint markers
@@ -59,11 +59,6 @@ public class DeploymentController : MonoBehaviour
     public void PlaceWaypointMarker(Vector3 position)
     {
         // Logic to place a waypoint marker at the specified position
-        if (waypointMarkerPrefab == null)
-        {
-            Debug.LogError("Waypoint marker prefab is not assigned.");
-            return;
-        }
 
 
         deploymentArrPtr++;
@@ -72,12 +67,40 @@ public class DeploymentController : MonoBehaviour
             // Notify that deployment phase can be ended
             Debug.Log("All waypoints placed. Deployment phase can be ended.");
             deployButton.SetActive(true); // Show deploy button
+        }
 
+        Destroy(waypoints[deploymentArrPtr]); // Destroy previous waypoint if exists
+
+
+        if(shipData[deploymentArrPtr] == null || shipData[deploymentArrPtr].shipPrefab == null) {
+            Debug.LogError("Ship data or prefab is not assigned for index: " + deploymentArrPtr);
+            return;
+        }
+        // Spawn in the waypoint ship marker
+        waypoints[deploymentArrPtr] = Instantiate(shipData[deploymentArrPtr].shipPrefab, position, shipData[deploymentArrPtr].shipPrefab.transform.rotation); // Create the new waypoint marker
+        if(shipData[deploymentArrPtr].name.StartsWith("Terminus")) {
+            waypoints[deploymentArrPtr].transform.position += new Vector3(-4.90f, 0.0f, 0.0f); // Adjust the deploymentPoint because the terminus model is not centered
+            waypoints[deploymentArrPtr].transform.rotation = Quaternion.Euler(-90, 0, 180); // Rotate the terminus to face "forward"
+        } else if(shipData[deploymentArrPtr].name.StartsWith("Arquitens")) {
+            waypoints[deploymentArrPtr].transform.rotation = Quaternion.Euler(90, 0, 0); // Rotate the arquitens to face "forward"
+        }
+        // Highlight the marker 
+        Renderer[] renderers = waypoints[deploymentArrPtr].GetComponentsInChildren<Renderer>();
+        if (renderers.Length != 0)
+        {
+            foreach (Renderer rend in renderers)
+            {
+                Material[] highlightMats = new Material[rend.materials.Length];
+                for (int i = 0; i < highlightMats.Length; i++)
+                {
+                    highlightMats[i] = highlightMaterial;
+                }
+                rend.materials = highlightMats;
+            }
         }
 
 
-        Destroy(waypoints[deploymentArrPtr]); // Destroy previous waypoint if exists
-        waypoints[deploymentArrPtr] = Instantiate(waypointMarkerPrefab, position, Quaternion.identity); // Create the new waypoint marker
+
         deploymentPoints[deploymentArrPtr] = waypoints[deploymentArrPtr].transform; // Store the deployment point
 
         Debug.Log("Waypoint marker placed at: " + position + ". Deployment point index: " + deploymentArrPtr);
