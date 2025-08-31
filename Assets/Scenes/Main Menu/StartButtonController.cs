@@ -9,4 +9,9 @@ public class StartButtonController : MonoBehaviour
         SceneManager.LoadScene("Game Scene");
     }
 
+    public void OnShipSelectionClick() 
+    {
+        SceneManager.LoadScene("Ship Selection");
+    }
+
 }
