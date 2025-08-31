@@ -60,7 +60,6 @@ public class DeploymentController : MonoBehaviour
     {
         // Logic to place a waypoint marker at the specified position
 
-
         deploymentArrPtr++;
         if (deploymentArrPtr == shipCount - 1)
         {
@@ -77,7 +76,7 @@ public class DeploymentController : MonoBehaviour
             return;
         }
         // Spawn in the waypoint ship marker
-        waypoints[deploymentArrPtr] = Instantiate(shipData[deploymentArrPtr].shipPrefab, position, shipData[deploymentArrPtr].shipPrefab.transform.rotation); // Create the new waypoint marker
+        waypoints[deploymentArrPtr] = Instantiate(shipData[deploymentArrPtr].shipPrefab, position + new Vector3(0.0f, 2.0f, 0.0f), shipData[deploymentArrPtr].shipPrefab.transform.rotation); // Create the new waypoint marker
 
         // Highlight the marker 
         Renderer[] renderers = waypoints[deploymentArrPtr].GetComponentsInChildren<Renderer>();
@@ -126,15 +125,13 @@ public class DeploymentController : MonoBehaviour
 
                 case "Battleship":
                     spawnPosition.z = -300f;
-                    deploymentPoints[i].position += new Vector3(0.0f, 2.0f, 0.0f);
                     playerShips[i] = Instantiate(arquitensPrefab, spawnPosition, deploymentPoints[i].transform.rotation);
                     // Start warp-in animation
                     StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1f + 0.5f)); // Warp
                     break;
 
-                case "Fighter":
+                case "Corvette":
                     spawnPosition.z = -300f;
-                    deploymentPoints[i].position += new Vector3(0.0f, 2.0f, 0.0f);
                     playerShips[i] = Instantiate(terminusPrefab, spawnPosition, deploymentPoints[i].transform.rotation);
                     // Start warp-in animation
                     StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1.0f + Random.Range(0.0f, 0.5f)));

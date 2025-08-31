@@ -20,7 +20,7 @@ public class PlayerShipController : MonoBehaviour
     public GameObject shipLabelPrefab;
     public GameObject[] shipLabels;
     public GameObject[] shipStatsLabels;
-    private Vector2 currentLabelPosition = new Vector2(150, 180);
+    private Vector2 currentLabelPosition = new Vector2(150, 0);
     public Material highlightMaterial;
 
 
@@ -34,14 +34,14 @@ public class PlayerShipController : MonoBehaviour
         // Harcoded the ship selection for now
         shipData = new ShipData[shipCount];
         shipData[0] = ScriptableObject.CreateInstance<ShipData>();
-        shipData[0].Initialize("Fighter", "Terminus 1");
+        shipData[0].Initialize("Corvette", "Terminus 1");
         shipData[0].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
-        shipData[1] = ScriptableObject.CreateInstance<ShipData>();
-        shipData[1].Initialize("Fighter", "Terminus 2");
-        shipData[1].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
         shipData[2] = ScriptableObject.CreateInstance<ShipData>();
-        shipData[2].Initialize("Battleship", "Arquitens");
-        shipData[2].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/arquitens");
+        shipData[2].Initialize("Corvette", "Terminus 2");
+        shipData[2].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
+        shipData[1] = ScriptableObject.CreateInstance<ShipData>();
+        shipData[1].Initialize("Battleship", "Arquitens");
+        shipData[1].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/arquitens");
     }
 
     public void SelectShip(int shipIndex)
@@ -80,6 +80,7 @@ public class PlayerShipController : MonoBehaviour
             for (int i = 0; i < shipStatsLabels.Length; i++)
             {
                 if (shipStatsLabels[i] != null) Destroy(shipStatsLabels[i]);
+                if( i < AdjustPowerButtons.Length && AdjustPowerButtons[i] != null) Destroy(AdjustPowerButtons[i]);
             }
 
             if (currentShipSelected == shipIndex)
@@ -194,8 +195,10 @@ public class PlayerShipController : MonoBehaviour
         for (int i = 0; i < shipData.Length; i++)
         {
             shipLabels[i] = createLabel(shipData[i].name + " (" + shipData[i].type + ")", currentLabelPosition);
+            currentLabelPosition += new Vector2(0, -10); // Move label down for next ship
         }
         currentLabelPosition += new Vector2(0, -100); // Adjust for the individual ship stats display
+        
 
     }
 

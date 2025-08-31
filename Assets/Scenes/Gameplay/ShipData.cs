@@ -32,9 +32,9 @@ public class ShipData : ScriptableObject
         // Hardcoded ship data for now
         switch (shipType)
         {
-            case "Fighter":
+            case "Corvette":
                 name = shipName;
-                type = "Fighter";
+                type = "Corvette";
                 baseSpeed = 10f;
                 health = 100f;
                 power = 3;
