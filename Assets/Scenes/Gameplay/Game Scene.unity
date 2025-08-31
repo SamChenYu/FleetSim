@@ -293,11 +293,12 @@ MonoBehaviour:
   waypointMarkerPrefab: {fileID: 4103225898545282988, guid: c17ca251be4262b4f8fdecce17c0aec8, type: 3}
   deployButton: {fileID: 2036091719}
   title: {fileID: 291045743}
+  highlightMaterial: {fileID: 2100000, guid: 22955efc067f61548820df5b824688df, type: 2}
   deploymentPoints: []
   deploymentArrPtr: 0
   waypoints: []
-  arquitensPrefab: {fileID: 117422387704774842, guid: 6387d23fe259abe4480470966eac4c07, type: 3}
-  terminusPrefab: {fileID: 6730039245450940940, guid: c0ffb39813e88644c9f6a1dc8a0b996a, type: 3}
+  arquitensPrefab: {fileID: 1917928179110770767, guid: 6387d23fe259abe4480470966eac4c07, type: 3}
+  terminusPrefab: {fileID: 8631987945781620185, guid: c0ffb39813e88644c9f6a1dc8a0b996a, type: 3}
   shipCount: 0
   shipData: []
 --- !u!4 &324780821
@@ -312,7 +313,8 @@ Transform:
   m_LocalPosition: {x: -5.46035, y: 0, z: -32.58157}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1372937287}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
@@ -660,12 +662,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -708,7 +710,7 @@ RectTransform:
   m_Children:
   - {fileID: 2036091720}
   - {fileID: 291045744}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 324780821}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1175,11 +1177,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8457080460426023210, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 37
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 8457080460426023210, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.01745245
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8457080460426023210, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1187,7 +1189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8457080460426023210, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.99984777
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8457080460426023210, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1199,7 +1201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8457080460426023210, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -178
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8457080460426023210, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1347,7 +1349,6 @@ SceneRoots:
   - {fileID: 3808007976616313752}
   - {fileID: 842127813}
   - {fileID: 1828712008}
-  - {fileID: 1372937287}
   - {fileID: 324780821}
   - {fileID: 1415737816}
   - {fileID: 515548054}

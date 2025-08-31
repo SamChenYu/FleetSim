@@ -4,13 +4,15 @@ public class ShipDrift: MonoBehaviour
 {
     public GameObject ship;
 
-    [SerializeField] public float baseX = 90;
-    [SerializeField] public float baseY = 40f;
-    [SerializeField] public float baseZ = 0f;
+    private float baseX;
+    private float baseY;
+    private float baseZ;
 
     public void Start()
     {
-
+        baseX = ship.transform.localEulerAngles.x;
+        baseY = ship.transform.localEulerAngles.y;
+        baseZ = ship.transform.localEulerAngles.z;
     }
 
 void Update()

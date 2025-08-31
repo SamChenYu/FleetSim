@@ -20,7 +20,7 @@ public class PlayerShipController : MonoBehaviour
     public GameObject shipLabelPrefab;
     public GameObject[] shipLabels;
     public GameObject[] shipStatsLabels;
-    private Vector2 currentLabelPosition = new Vector2(0, 160);
+    private Vector2 currentLabelPosition = new Vector2(150, 180);
     public Material highlightMaterial;
 
 
@@ -135,6 +135,8 @@ public class PlayerShipController : MonoBehaviour
         // Allocated Engine Power
         // Allocated Shield Power
         // Allocated Weapon Power
+
+        
 
         shipStatsLabels[0] = createLabel("Health: " + shipData[currentShipSelected].health.ToString("F1"), currentLabelPosition);
         shipStatsLabels[1] = createLabel("Speed: " + shipData[currentShipSelected].baseSpeed.ToString("F1"), currentLabelPosition);

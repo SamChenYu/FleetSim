@@ -29,8 +29,4 @@ ScriptedImporter:
   - type: 2
     code: 20
     messages:
-    - KHR_node_visibility
-  - type: 2
-    code: 20
-    messages:
     - KHR_materials_emissive_strength

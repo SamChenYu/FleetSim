@@ -78,12 +78,7 @@ public class DeploymentController : MonoBehaviour
         }
         // Spawn in the waypoint ship marker
         waypoints[deploymentArrPtr] = Instantiate(shipData[deploymentArrPtr].shipPrefab, position, shipData[deploymentArrPtr].shipPrefab.transform.rotation); // Create the new waypoint marker
-        if(shipData[deploymentArrPtr].name.StartsWith("Terminus")) {
-            waypoints[deploymentArrPtr].transform.position += new Vector3(-4.90f, 0.0f, 0.0f); // Adjust the deploymentPoint because the terminus model is not centered
-            waypoints[deploymentArrPtr].transform.rotation = Quaternion.Euler(-90, 0, 180); // Rotate the terminus to face "forward"
-        } else if(shipData[deploymentArrPtr].name.StartsWith("Arquitens")) {
-            waypoints[deploymentArrPtr].transform.rotation = Quaternion.Euler(90, 0, 0); // Rotate the arquitens to face "forward"
-        }
+
         // Highlight the marker 
         Renderer[] renderers = waypoints[deploymentArrPtr].GetComponentsInChildren<Renderer>();
         if (renderers.Length != 0)
@@ -130,19 +125,17 @@ public class DeploymentController : MonoBehaviour
             {
 
                 case "Battleship":
-                    spawnPosition.z = 300f;
+                    spawnPosition.z = -300f;
                     deploymentPoints[i].position += new Vector3(0.0f, 2.0f, 0.0f);
-                    playerShips[i] = Instantiate(arquitensPrefab, spawnPosition, Quaternion.Euler(90, 0, 0));
+                    playerShips[i] = Instantiate(arquitensPrefab, spawnPosition, deploymentPoints[i].transform.rotation);
                     // Start warp-in animation
                     StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1f + 0.5f)); // Warp
                     break;
 
                 case "Fighter":
-                    spawnPosition.z = 300f;
-                    spawnPosition.x -= 4.90f; // terminus model has some slight offset -> this is at 2x size
-                    // Adjust the deploymentPoint because the terminus model is not centered
-                    deploymentPoints[i].position += new Vector3(-4.90f, 0.0f, 0.0f);
-                    playerShips[i] = Instantiate(terminusPrefab, spawnPosition, Quaternion.Euler(-90, 0, 180));
+                    spawnPosition.z = -300f;
+                    deploymentPoints[i].position += new Vector3(0.0f, 2.0f, 0.0f);
+                    playerShips[i] = Instantiate(terminusPrefab, spawnPosition, deploymentPoints[i].transform.rotation);
                     // Start warp-in animation
                     StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1.0f + Random.Range(0.0f, 0.5f)));
                     break;
