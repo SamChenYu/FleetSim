@@ -3,6 +3,9 @@ using System.Collections;
 public class DeploymentController : MonoBehaviour
 {
 
+
+    public bool isDeploymentPhase = true; // Flag to indicate if in deployment phase
+
     public GameController gameController;
     public GameObject waypointMarkerPrefab; // Prefab for the waypoint marker
 
@@ -155,6 +158,7 @@ public class DeploymentController : MonoBehaviour
         title.SetActive(false);
         // Pass the ship data to the PlayerShipController
         gameController.playerShipController.ReceiveShipsFromDeployment(playerShips);
+        isDeploymentPhase = false; // End deployment phase
         Debug.Log("Deployment phase ended. Ships deployed: " + playerShips.Length);
     }
 

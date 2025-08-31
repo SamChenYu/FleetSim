@@ -10,7 +10,6 @@ public class PlayerControls : MonoBehaviour
     private PlayerShipController playerShipController; // Dependency Injection for playercontrols
     private DeploymentController deploymentController; // Dependency Injection for deployment controller
 
-    private bool isDeploymentPhase = true; // Flag to check if in deployment phase
 
 
     private bool mouseDragging = false;
@@ -80,7 +79,7 @@ public class PlayerControls : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            if (isDeploymentPhase)
+            if (deploymentController.isDeploymentPhase)
             {
                 // Deployment raycast logic 
                 // Find out where the player clicks at y = 0 to place a waypoint marker
