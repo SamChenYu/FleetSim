@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PlayerShipController : MonoBehaviour
 {
 
+    public GameObject waypointMarkerPrefab; // Prefab for the waypoint marker
 
     // Ship data
     public GameObject[] playerShips;
@@ -234,5 +235,32 @@ public class PlayerShipController : MonoBehaviour
         return buttons;
     }
 
-    
+    public void placeWaypoint(Vector3 position) {
+        if (currentShipSelected == -1)
+        {
+            Debug.Log("No ship selected to place waypoint.");
+            return;
+        }
+
+        // Instantiate the waypoint marker at the clicked position
+        GameObject marker = Instantiate(waypointMarkerPrefab, position, Quaternion.identity);
+
+        // Here you would add logic to move the selected ship to the waypoint
+        Debug.Log("Placing waypoint for ship " + shipData[currentShipSelected].name + " at position: " + position);
+        //Start coroutine to move ship to position
+        StartCoroutine(MoveShipToWaypoint(playerShips[currentShipSelected], position, marker));
+
+    }
+
+    //Coroutine for a ship to move to its waypoint
+    private System.Collections.IEnumerator MoveShipToWaypoint(GameObject ship, Vector3 waypoint, GameObject marker) 
+    {
+        float speed = shipData[currentShipSelected].baseSpeed;
+        while (Vector3.Distance(ship.transform.position, waypoint) > 0.1f)
+        {
+            ship.transform.position = Vector3.MoveTowards(ship.transform.position, waypoint, speed * Time.deltaTime);
+            yield return null;
+        }
+        Destroy(marker); // Remove the waypoint marker once the ship reaches the destination
+    }
 }

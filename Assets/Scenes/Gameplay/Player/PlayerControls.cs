@@ -11,7 +11,6 @@ public class PlayerControls : MonoBehaviour
     private DeploymentController deploymentController; // Dependency Injection for deployment controller
 
 
-
     private bool mouseDragging = false;
 
     // Camera Rotation
@@ -95,7 +94,14 @@ public class PlayerControls : MonoBehaviour
             else
             {
                 // Handle gameplay actions here
-                Debug.Log("Gameplay action triggered.");
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Plane groundPLane = new Plane(Vector3.up, Vector3.zero);
+                if (groundPLane.Raycast(ray, out float enter))
+                {
+                    Vector3 hitpoint = ray.GetPoint(enter);
+                    playerShipController.placeWaypoint(hitpoint);
+                }
+                
             }
         }
     

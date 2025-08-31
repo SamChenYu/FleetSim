@@ -1011,6 +1011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46c90fc6fd4be344840e3e500d9fc8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypointMarkerPrefab: {fileID: 4103225898545282988, guid: c17ca251be4262b4f8fdecce17c0aec8, type: 3}
   playerShips: []
   shipData: []
   shipCount: 3

@@ -35,7 +35,7 @@ public class ShipData : ScriptableObject
             case "Corvette":
                 name = shipName;
                 type = "Corvette";
-                baseSpeed = 10f;
+                baseSpeed = 3f;
                 health = 100f;
                 power = 3;
                 allocatedEnginePower = 2;
@@ -52,7 +52,7 @@ public class ShipData : ScriptableObject
             case "Cruiser":
                 name = shipName;
                 type = "Cruiser";
-                baseSpeed = 8f;
+                baseSpeed = 2f;
                 health = 200f;
                 power = 4;
                 allocatedEnginePower = 1;
@@ -69,7 +69,7 @@ public class ShipData : ScriptableObject
             case "Battleship":
                 name = shipName;
                 type = "Battleship";
-                baseSpeed = 5f;
+                baseSpeed = 1f;
                 health = 300f;
                 power = 5;
                 allocatedEnginePower = 0;
