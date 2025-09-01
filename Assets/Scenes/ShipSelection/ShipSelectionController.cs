@@ -28,10 +28,20 @@ public class ShipSelectionController : MonoBehaviour
 
     void Start()
     {
-        terminusCount = 2;
-        eternalCount = 1;
-        arquitensCount = 1;
-        harrowerCount = 1;
+
+        if(PlayerPrefs.HasKey("TerminusCount")) {
+            terminusCount = PlayerPrefs.GetInt("TerminusCount");
+            eternalCount = PlayerPrefs.GetInt("EternalCount");
+            arquitensCount = PlayerPrefs.GetInt("ArquitensCount");
+            harrowerCount = PlayerPrefs.GetInt("HarrowerCount");
+        } else {
+            terminusCount = 2;
+            eternalCount = 1;
+            arquitensCount = 1;
+            harrowerCount = 1;
+        }
+
+        UpdateLabels();
     }
 
     // Update is called once per frame
