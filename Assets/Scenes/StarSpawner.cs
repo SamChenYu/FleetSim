@@ -15,7 +15,7 @@ public class StarSpawner : MonoBehaviour
         stars = new GameObject[starCount];
         starDrift = new Vector3[starCount];
 
-        for(int i=0; i<starCount; i++)
+        for (int i = 0; i < starCount; i++)
         {
             GameObject star = Instantiate(starPrefab);
             star.transform.position = new Vector3(

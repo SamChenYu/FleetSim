@@ -10,7 +10,7 @@ public class PlayerShipController : MonoBehaviour
     // Ship data
     public GameObject[] playerShips;
     public ShipData[] shipData;
-    public int shipCount = 3;
+    public int shipCount = 4;
     public int currentShipSelected = -1;
     private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
 
@@ -41,8 +41,12 @@ public class PlayerShipController : MonoBehaviour
         shipData[2].Initialize("Corvette", "Terminus 2");
         shipData[2].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
         shipData[1] = ScriptableObject.CreateInstance<ShipData>();
-        shipData[1].Initialize("Battleship", "Arquitens");
+        shipData[1].Initialize("Capital Ship", "Arquitens");
         shipData[1].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/arquitens");
+        shipData[3] = ScriptableObject.CreateInstance<ShipData>();
+        shipData[3].Initialize("Dreadnought", "Eternal");
+        shipData[3].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/battlecruiser");
+
     }
 
     public void SelectShip(int shipIndex)

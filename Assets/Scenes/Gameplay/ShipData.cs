@@ -66,9 +66,9 @@ public class ShipData : ScriptableObject
                 range = 20f;
                 break;
 
-            case "Battleship":
+            case "Capital Ship":
                 name = shipName;
-                type = "Battleship";
+                type = "Capital Ship";
                 baseSpeed = 1f;
                 health = 300f;
                 power = 5;
@@ -83,6 +83,22 @@ public class ShipData : ScriptableObject
                 range = 25f;
                 break;
 
+            case "Dreadnought":
+                name = shipName;
+                type = "Dreadnought";
+                baseSpeed = 0.5f;
+                health = 500f;
+                power = 10;
+                allocatedEnginePower = 3;
+                allocatedShieldPower = 3;
+                allocatedWeaponPower = 2;
+                shield = 300f;
+                shieldRegenRate = 2f;
+                shieldRegenDelay = 10f;
+                damage = 50f;
+                fireRate = 0.5f;
+                range = 25f;
+                break;
             default:
                 Debug.LogError("<ShipData> Unknown ship type: " + shipType);
                 break;
