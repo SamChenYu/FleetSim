@@ -301,6 +301,7 @@ MonoBehaviour:
   arquitensPrefab: {fileID: 1917928179110770767, guid: 6387d23fe259abe4480470966eac4c07, type: 3}
   terminusPrefab: {fileID: 8631987945781620185, guid: c0ffb39813e88644c9f6a1dc8a0b996a, type: 3}
   dreadnoughtPrefab: {fileID: 216803198351244819, guid: cc3fa7a82e7de734c8acf8e0228007c9, type: 3}
+  cruiserPrefab: {fileID: 8212572313983014798, guid: cf858192047b1084aa1684cf21c9b3c8, type: 3}
   shipCount: 0
   shipData: []
 --- !u!4 &324780821
@@ -968,6 +969,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1531409467}
   m_CullTransparentMesh: 1
+--- !u!1 &1693567593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8430590329170847484, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
+  m_PrefabInstance: {fileID: 1024665013452547427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1693567600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693567593}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07283822f6416b144a221a844b0a367d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 1693567593}
+  commandShip: {fileID: 0}
+  deploymentController: {fileID: 324780820}
 --- !u!1 &1828712006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,7 +1036,7 @@ MonoBehaviour:
   waypointMarkerPrefab: {fileID: 4103225898545282988, guid: c17ca251be4262b4f8fdecce17c0aec8, type: 3}
   playerShips: []
   shipData: []
-  shipCount: 4
+  shipCount: 5
   currentShipSelected: -1
   gameplayUI: {fileID: 1415737812}
   shipLabelPrefab: {fileID: 6047538214546668848, guid: 1c0cd56d3d334fc4bb869322427a3265, type: 3}
@@ -1213,7 +1234,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8430590329170847484, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1693567600}
   m_SourcePrefab: {fileID: 100100000, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
 --- !u!1001 &3131496657071058546
 PrefabInstance:
