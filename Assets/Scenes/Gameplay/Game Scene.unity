@@ -300,6 +300,7 @@ MonoBehaviour:
   waypoints: []
   arquitensPrefab: {fileID: 1917928179110770767, guid: 6387d23fe259abe4480470966eac4c07, type: 3}
   terminusPrefab: {fileID: 8631987945781620185, guid: c0ffb39813e88644c9f6a1dc8a0b996a, type: 3}
+  dreadnoughtPrefab: {fileID: 216803198351244819, guid: cc3fa7a82e7de734c8acf8e0228007c9, type: 3}
   shipCount: 0
   shipData: []
 --- !u!4 &324780821
@@ -1014,7 +1015,7 @@ MonoBehaviour:
   waypointMarkerPrefab: {fileID: 4103225898545282988, guid: c17ca251be4262b4f8fdecce17c0aec8, type: 3}
   playerShips: []
   shipData: []
-  shipCount: 3
+  shipCount: 4
   currentShipSelected: -1
   gameplayUI: {fileID: 1415737812}
   shipLabelPrefab: {fileID: 6047538214546668848, guid: 1c0cd56d3d334fc4bb869322427a3265, type: 3}

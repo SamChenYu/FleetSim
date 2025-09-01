@@ -25,6 +25,8 @@ public class DeploymentController : MonoBehaviour
     public GameObject arquitensPrefab;
     public GameObject terminusPrefab;
 
+    public GameObject dreadnoughtPrefab;
+
 
 
     // Ship data
@@ -126,11 +128,11 @@ public class DeploymentController : MonoBehaviour
             switch (shipData[i].type)
             {
 
-                case "Battleship":
+                case "Capital Ship":
                     spawnPosition.z = -300f;
                     playerShips[i] = Instantiate(arquitensPrefab, spawnPosition, deploymentPoints[i].transform.rotation);
                     // Start warp-in animation
-                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1f + 0.5f)); // Warp
+                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position + new Vector3(0.0f, 2.0f, 0.0f), 1f + 0.5f)); // Warp
                     break;
 
                 case "Corvette":
@@ -139,6 +141,14 @@ public class DeploymentController : MonoBehaviour
                     // Start warp-in animation
                     StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1.0f + Random.Range(0.0f, 0.5f)));
                     break;
+
+                case "Dreadnought":
+                    spawnPosition.z = -300f;
+                    playerShips[i] = Instantiate(dreadnoughtPrefab, spawnPosition, deploymentPoints[i].transform.rotation);
+                    // Start warp-in animation
+                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1.0f + Random.Range(0.0f, 0.5f)));
+                    break;
+
 
                 default:
                     Debug.LogError("<DeploymentController> Unknown ship type: " + shipData[i].type);

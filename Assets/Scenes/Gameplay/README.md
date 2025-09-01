@@ -14,3 +14,9 @@ Creation of the player ships
 
 - ShipData
 Handles object creation and stat instantiation of the ship's data
+
+
+Changing Player Class requires changes in
+- ShipData
+- PlayerShipController
+- DeploymentController
