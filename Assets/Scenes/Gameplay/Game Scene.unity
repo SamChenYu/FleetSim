@@ -989,6 +989,7 @@ MonoBehaviour:
   camera: {fileID: 1693567593}
   commandShip: {fileID: 0}
   deploymentController: {fileID: 324780820}
+  isFollowingCommandShip: 0
 --- !u!1 &1828712006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,11 +1198,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8457080460426023210, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 8457080460426023210, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -50
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 8457080460426023210, guid: 7425902cc49f3834bae4ea241a94c188, type: 3}
       propertyPath: m_LocalRotation.w

@@ -7,6 +7,8 @@ public class CameraPOV : MonoBehaviour
     public GameObject commandShip;
     public DeploymentController deploymentController;
 
+    public bool isFollowingCommandShip = true;
+
     void Update() 
     {
 
@@ -21,7 +23,12 @@ public class CameraPOV : MonoBehaviour
             return;
         }
 
-        // Follow the command ship's position
-        camera.transform.position = new Vector3(commandShip.transform.position.x, commandShip.transform.position.y + 2f, commandShip.transform.position.z);
+        if(isFollowingCommandShip)
+        {
+            camera.transform.position = new Vector3(commandShip.transform.position.x, commandShip.transform.position.y + 2f, commandShip.transform.position.z);
+        } else
+        {
+            camera.transform.position = new Vector3(0f, 75f, 0f);
+        }
     }
-}
+}   

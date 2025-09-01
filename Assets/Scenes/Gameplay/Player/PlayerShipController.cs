@@ -10,7 +10,7 @@ public class PlayerShipController : MonoBehaviour
     // Ship data
     public GameObject[] playerShips;
     public ShipData[] shipData;
-    public int shipCount = 4;
+    public int shipCount;
     public int currentShipSelected = -1;
     private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
 
@@ -31,24 +31,60 @@ public class PlayerShipController : MonoBehaviour
 
 
     void Awake()
-    {
-        // Harcoded the ship selection for now
+    {   
+
+        shipCount = PlayerPrefs.GetInt("TerminusCount", 2) + PlayerPrefs.GetInt("EternalCount", 1) + PlayerPrefs.GetInt("ArquitensCount", 1) + PlayerPrefs.GetInt("HarrowerCount", 1);
         shipData = new ShipData[shipCount];
-        shipData[0] = ScriptableObject.CreateInstance<ShipData>();
-        shipData[0].Initialize("Corvette", "Terminus 1");
-        shipData[0].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
-        shipData[2] = ScriptableObject.CreateInstance<ShipData>();
-        shipData[2].Initialize("Corvette", "Terminus 2");
-        shipData[2].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
-        shipData[1] = ScriptableObject.CreateInstance<ShipData>();
-        shipData[1].Initialize("Capital Ship", "Arquitens");
-        shipData[1].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/arquitens");
-        shipData[3] = ScriptableObject.CreateInstance<ShipData>();
-        shipData[3].Initialize("Dreadnought", "Eternal");
-        shipData[3].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/dreadnought");
-        shipData[4] = ScriptableObject.CreateInstance<ShipData>();
-        shipData[4].Initialize("Cruiser", "Harrower");
-        shipData[4].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/harrower");
+        int index = 0;
+
+        for (int i = 0; i < PlayerPrefs.GetInt("TerminusCount", 2); i++)
+        {
+            shipData[index] = ScriptableObject.CreateInstance<ShipData>();
+            shipData[index].Initialize("Corvette", "Terminus " + (i + 1));
+            shipData[index].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
+            index++;
+        }
+        for (int i = 0; i < PlayerPrefs.GetInt("ArquitensCount", 1); i++)
+        {
+            shipData[index] = ScriptableObject.CreateInstance<ShipData>();
+            shipData[index].Initialize("Capital Ship", "Arquitens " + (i + 1));
+            shipData[index].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/arquitens");
+            index++;
+        }
+        for (int i = 0; i < PlayerPrefs.GetInt("EternalCount", 1); i++)
+        {   
+            shipData[index] = ScriptableObject.CreateInstance<ShipData>();
+            shipData[index].Initialize("Dreadnought", "Eternal " + (i + 1));
+            shipData[index].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/dreadnought");
+            index++;
+        }
+        for (int i = 0; i < PlayerPrefs.GetInt("HarrowerCount", 1); i++)
+        {
+            shipData[index] = ScriptableObject.CreateInstance<ShipData>();
+            shipData[index].Initialize("Cruiser", "Harrower " + (i + 1));
+            shipData[index].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/harrower");
+            index++;
+        }
+        
+
+
+        // // Harcoded the ship selection for now
+        // shipData = new ShipData[shipCount];
+        // shipData[0] = ScriptableObject.CreateInstance<ShipData>();
+        // shipData[0].Initialize("Corvette", "Terminus 1");
+        // shipData[0].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
+        // shipData[2] = ScriptableObject.CreateInstance<ShipData>();
+        // shipData[2].Initialize("Corvette", "Terminus 2");
+        // shipData[2].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
+        // shipData[1] = ScriptableObject.CreateInstance<ShipData>();
+        // shipData[1].Initialize("Capital Ship", "Arquitens");
+        // shipData[1].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/arquitens");
+        // shipData[3] = ScriptableObject.CreateInstance<ShipData>();
+        // shipData[3].Initialize("Dreadnought", "Eternal");
+        // shipData[3].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/dreadnought");
+        // shipData[4] = ScriptableObject.CreateInstance<ShipData>();
+        // shipData[4].Initialize("Cruiser", "Harrower");
+        // shipData[4].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/harrower");
 
 
     }
