@@ -65,6 +65,7 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2)) playerShipController.SelectShip(1);
         if (Input.GetKeyDown(KeyCode.Alpha3)) playerShipController.SelectShip(2);
         if (Input.GetKeyDown(KeyCode.Alpha4)) playerShipController.SelectShip(3);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) playerShipController.SelectShip(4);
 
         if (Input.GetMouseButtonDown(1))
         {

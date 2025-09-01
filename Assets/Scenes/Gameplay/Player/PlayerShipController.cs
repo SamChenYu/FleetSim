@@ -46,6 +46,10 @@ public class PlayerShipController : MonoBehaviour
         shipData[3] = ScriptableObject.CreateInstance<ShipData>();
         shipData[3].Initialize("Dreadnought", "Eternal");
         shipData[3].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/dreadnought");
+        shipData[4] = ScriptableObject.CreateInstance<ShipData>();
+        shipData[4].Initialize("Cruiser", "Harrower");
+        shipData[4].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/harrower");
+
 
     }
 

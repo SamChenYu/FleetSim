@@ -24,9 +24,8 @@ public class DeploymentController : MonoBehaviour
     // Source Models
     public GameObject arquitensPrefab;
     public GameObject terminusPrefab;
-
     public GameObject dreadnoughtPrefab;
-
+    public GameObject cruiserPrefab;
 
 
     // Ship data
@@ -55,6 +54,15 @@ public class DeploymentController : MonoBehaviour
         deploymentPoints = new Transform[shipCount];
         waypoints = new GameObject[shipCount];
         
+        // Load prefabs
+        arquitensPrefab = Resources.Load<GameObject>("Models/Prefabs/arquitens");
+        terminusPrefab = Resources.Load<GameObject>("Models/Prefabs/terminus");
+        dreadnoughtPrefab = Resources.Load<GameObject>("Models/Prefabs/dreadnought");
+        cruiserPrefab = Resources.Load<GameObject>("Models/Prefabs/harrower");
+        if (arquitensPrefab == null) Debug.LogError("Arquitens prefab not found in Resources/Models/Prefabs.");
+        if (terminusPrefab == null) Debug.LogError("Terminus prefab not found in Resources/Models/Prefabs.");
+        if (dreadnoughtPrefab == null) Debug.LogError("Dreadnought prefab not found in Resources/Models/Prefabs.");
+        if (cruiserPrefab == null) Debug.LogError("Cruiser prefab not found in Resources/Models/Prefabs.");
 
         deployButton.SetActive(false); // Hide deploy button initially
     }
@@ -149,6 +157,12 @@ public class DeploymentController : MonoBehaviour
                     StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1.0f + Random.Range(0.0f, 0.5f)));
                     break;
 
+                case "Cruiser":
+                    spawnPosition.z = -300f;
+                    playerShips[i] = Instantiate(cruiserPrefab, spawnPosition, deploymentPoints[i].transform.rotation);
+                    // Start warp-in animation
+                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position, 1.0f + Random.Range(0.0f, 0.5f)));
+                    break;
 
                 default:
                     Debug.LogError("<DeploymentController> Unknown ship type: " + shipData[i].type);

@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 27568351}
   - component: {fileID: 27568350}
   m_Layer: 5
-  m_Name: Button (3)
+  m_Name: Terminus+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 37550881}
   - component: {fileID: 37550880}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Eternal+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1172,7 +1172,7 @@ GameObject:
   - component: {fileID: 645552393}
   - component: {fileID: 645552392}
   m_Layer: 5
-  m_Name: Button (4)
+  m_Name: Harrower-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1292,7 +1292,7 @@ GameObject:
   - component: {fileID: 724613226}
   - component: {fileID: 724613225}
   m_Layer: 5
-  m_Name: Title (1)
+  m_Name: HarrowerTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1616,7 +1616,7 @@ GameObject:
   - component: {fileID: 890821132}
   - component: {fileID: 890821131}
   m_Layer: 5
-  m_Name: Button (6)
+  m_Name: Arquitens-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1737,7 +1737,7 @@ GameObject:
   - component: {fileID: 945363044}
   - component: {fileID: 945363043}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Arquitens+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1993,7 +1993,7 @@ GameObject:
   - component: {fileID: 974667375}
   - component: {fileID: 974667374}
   m_Layer: 5
-  m_Name: Title (4)
+  m_Name: TerminusTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2389,7 +2389,7 @@ GameObject:
   - component: {fileID: 1154426310}
   - component: {fileID: 1154426309}
   m_Layer: 5
-  m_Name: Button (7)
+  m_Name: Terminus-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2587,7 +2587,7 @@ GameObject:
   - component: {fileID: 1248592956}
   - component: {fileID: 1248592955}
   m_Layer: 5
-  m_Name: Title (2)
+  m_Name: EternalTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2828,7 +2828,7 @@ GameObject:
   - component: {fileID: 1388278313}
   - component: {fileID: 1388278312}
   m_Layer: 5
-  m_Name: Title (3)
+  m_Name: ArquitensTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3142,7 +3142,7 @@ GameObject:
   - component: {fileID: 1532635520}
   - component: {fileID: 1532635519}
   m_Layer: 5
-  m_Name: Button (5)
+  m_Name: Eternal-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3506,8 +3506,8 @@ RectTransform:
   - {fileID: 798663430}
   - {fileID: 2079530363}
   - {fileID: 645552391}
-  - {fileID: 37550879}
   - {fileID: 724613224}
+  - {fileID: 37550879}
   - {fileID: 1532635518}
   - {fileID: 1248592954}
   - {fileID: 945363042}
@@ -3929,7 +3929,7 @@ GameObject:
   - component: {fileID: 2079530365}
   - component: {fileID: 2079530364}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Harrower+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
