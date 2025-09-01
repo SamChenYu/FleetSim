@@ -989,7 +989,7 @@ MonoBehaviour:
   camera: {fileID: 1693567593}
   commandShip: {fileID: 0}
   deploymentController: {fileID: 324780820}
-  isFollowingCommandShip: 0
+  isFollowingCommandShip: 1
 --- !u!1 &1828712006
 GameObject:
   m_ObjectHideFlags: 0

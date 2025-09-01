@@ -27,6 +27,8 @@ public class DeploymentController : MonoBehaviour
     public GameObject dreadnoughtPrefab;
     public GameObject cruiserPrefab;
 
+    public GameObject hoverEffectPrefab; // Shows the player where they are pointing with a ship
+    private bool allShipsPlaced = false;
 
     // Ship data
     public int shipCount;
@@ -79,6 +81,7 @@ public class DeploymentController : MonoBehaviour
             // Notify that deployment phase can be ended
             Debug.Log("All waypoints placed. Deployment phase can be ended.");
             deployButton.SetActive(true); // Show deploy button
+            allShipsPlaced = true;
         }
 
         Destroy(waypoints[deploymentArrPtr]); // Destroy previous waypoint if exists
@@ -89,7 +92,7 @@ public class DeploymentController : MonoBehaviour
             return;
         }
         // Spawn in the waypoint ship marker
-        waypoints[deploymentArrPtr] = Instantiate(shipData[deploymentArrPtr].shipPrefab, position + new Vector3(0.0f, 2.0f, 0.0f), shipData[deploymentArrPtr].shipPrefab.transform.rotation); // Create the new waypoint marker
+        waypoints[deploymentArrPtr] = Instantiate(shipData[deploymentArrPtr].shipPrefab, position + new Vector3(0.0f, 3.0f, 0.0f), shipData[deploymentArrPtr].shipPrefab.transform.rotation); // Create the new waypoint marker
 
         // Highlight the marker 
         Renderer[] renderers = waypoints[deploymentArrPtr].GetComponentsInChildren<Renderer>();
@@ -116,6 +119,8 @@ public class DeploymentController : MonoBehaviour
         {
             deploymentArrPtr = -1; // Reset pointer for next deployment phase
         }
+        Destroy(hoverEffectPrefab); // Remove the hover effect
+        hoverEffectPrefab = null;
     }
     
 
@@ -140,7 +145,7 @@ public class DeploymentController : MonoBehaviour
                     spawnPosition.z = -300f;
                     playerShips[i] = Instantiate(arquitensPrefab, spawnPosition, deploymentPoints[i].transform.rotation);
                     // Start warp-in animation
-                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position + new Vector3(0.0f, 2.0f, 0.0f), 1f + 0.5f)); // Warp
+                    StartCoroutine(WarpIn(playerShips[i], deploymentPoints[i].position + new Vector3(0.0f, 3.0f, 0.0f), 1f + 0.5f)); // Warp
                     break;
 
                 case "Corvette":
@@ -184,6 +189,7 @@ public class DeploymentController : MonoBehaviour
         gameController.playerShipController.ReceiveShipsFromDeployment(playerShips);
         isDeploymentPhase = false; // End deployment phase
         Debug.Log("Deployment phase ended. Ships deployed: " + playerShips.Length);
+        this.enabled = false; // Disable this script
     }
 
 
@@ -198,4 +204,48 @@ public class DeploymentController : MonoBehaviour
         }
         ship.transform.position = targetPos;
     }
+
+
+
+    public void ShowHoverEffect(Vector3 position) 
+    {
+
+        if( allShipsPlaced ) return; // Do not show hover effect if all ships are placed
+
+        if (hoverEffectPrefab != null)
+        {
+            // Follow the cursor
+            hoverEffectPrefab.transform.position = position;
+            return;
+        }
+
+        // Show a hover effect at the specified position
+        hoverEffectPrefab = Instantiate(shipData[deploymentArrPtr+1].shipPrefab, position + new Vector3(0.0f, 2.0f, 0.0f), shipData[deploymentArrPtr+1].shipPrefab.transform.rotation);
+        if (hoverEffectPrefab == null) {
+            Debug.LogError("Hover effect prefab is not assigned.");
+            return;
+        }
+
+        // Highlight the marker 
+        Renderer[] renderers = hoverEffectPrefab.GetComponentsInChildren<Renderer>();
+        if (renderers.Length != 0)
+        {
+            foreach (Renderer rend in renderers)
+            {
+                Material[] highlightMats = new Material[rend.materials.Length];
+                for (int i = 0; i < highlightMats.Length; i++)
+                {
+                    highlightMats[i] = highlightMaterial;
+                }
+                rend.materials = highlightMats;
+            }
+        }
+
+    }
+
+
+
+
+
+
 }

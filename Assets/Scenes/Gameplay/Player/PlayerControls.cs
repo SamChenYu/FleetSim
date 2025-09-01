@@ -32,6 +32,7 @@ public class PlayerControls : MonoBehaviour
     private float playerHeight;
     private float raycastDistance;
 
+
     void Start()
     {   
 
@@ -66,6 +67,12 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) playerShipController.SelectShip(2);
         if (Input.GetKeyDown(KeyCode.Alpha4)) playerShipController.SelectShip(3);
         if (Input.GetKeyDown(KeyCode.Alpha5)) playerShipController.SelectShip(4);
+        if (Input.GetKeyDown(KeyCode.Alpha6)) playerShipController.SelectShip(5);
+        if (Input.GetKeyDown(KeyCode.Alpha7)) playerShipController.SelectShip(6);
+        if (Input.GetKeyDown(KeyCode.Alpha8)) playerShipController.SelectShip(7);
+        if (Input.GetKeyDown(KeyCode.Alpha9)) playerShipController.SelectShip(8);
+        if (Input.GetKeyDown(KeyCode.Alpha0)) playerShipController.SelectShip(9);
+
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -121,6 +128,20 @@ public class PlayerControls : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+            }
+
+            // ShowHoverEffect in deployment phase
+            if(deploymentController.isDeploymentPhase) 
+            {
+                // Deployment raycast logic 
+                // Find out where the player clicks at y = 0 to place a waypoint marker
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+                if (groundPlane.Raycast(ray, out float enter))
+                {
+                    Vector3 hitpoint = ray.GetPoint(enter);
+                    deploymentController.ShowHoverEffect(hitpoint);
+                }
             }
     }
 

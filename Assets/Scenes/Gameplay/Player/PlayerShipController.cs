@@ -65,7 +65,7 @@ public class PlayerShipController : MonoBehaviour
             shipData[index].shipPrefab = Resources.Load<GameObject>("Models/Prefabs/harrower");
             index++;
         }
-        
+
 
 
         // // Harcoded the ship selection for now
